@@ -6,7 +6,7 @@ function ApplicationList({ apps }) {
   const [threshold, setThreshold] = useState({}); 
 
   const handleClick_delete = (appId) => {
-    fetch(`http://10.20.0.74:8888/apps/delete/${appId}`, { 
+    fetch(`http://10.136.149.225:8888/apps/delete/${appId}`, { 
       method: 'DELETE'
     }).then(() => {
       navigate('/'); // Consider using state update here instead of navigating
@@ -14,7 +14,7 @@ function ApplicationList({ apps }) {
   }
 
   const handleClick_background = (appId) => {
-    fetch('http://10.20.0.74:8888/apps/delete', { 
+    fetch('http://10.136.149.225:8888/apps/delete', { 
       method: 'DELETE'
     }).then(() => {
       navigate('/'); // Consider using state update here instead of navigating
@@ -28,7 +28,22 @@ function ApplicationList({ apps }) {
       threshold: threshold || "" 
     };
 
-    fetch('http://10.20.0.74:8888/apps/run', { 
+    fetch('http://10.136.149.225:8888/apps/run', { 
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(appData)
+    }).then(() => {
+      navigate('/');
+    });
+  }
+  const handleStop = (app, event) => {
+    event.preventDefault();
+    let appData = {
+      app_id: app.id,
+      enabled: "stopped"
+    };
+
+    fetch('http://10.136.149.225:8888/apps/startOrStop', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(appData)
@@ -51,15 +66,18 @@ function ApplicationList({ apps }) {
           </div>
           <div className="actions">
             <button onClick={() => handleClick_delete(app.id)}>Delete</button>
+            <form onSubmit={(e) => handleStop(app, e)}>
+                <button type="submit">Stop</button>
             <form onSubmit={(e) => handleSubmit(app, e)}>
               {app.relationship === 'condition' && (
                 <input
                   type="text"
-                  value={threshold}                          
+                  value="Input threshold"
                   onChange={(e) => setThreshold(e.target.value)}
                 />
               )}
               <button type="submit">Run</button>
+              </form>
             </form>
           </div>
         </div>

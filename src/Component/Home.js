@@ -7,7 +7,7 @@ const Home = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch('http://10.20.0.74:8888/apps', { 
+        fetch('http://10.136.149.225:8888/apps', { 
           method: 'GET',
           headers: { "Content-Type": "application/json" }
         }) 

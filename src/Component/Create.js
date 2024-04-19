@@ -11,7 +11,7 @@ const Create = () => {
     const navigate = useNavigate(); 
 
     useEffect(() => { 
-      fetch('http://10.20.0.74:8888/services', { 
+      fetch('http://10.136.149.225:8888/services', { 
         method: 'GET',
         headers: { "Content-Type": "application/json" }
       }) 
@@ -28,7 +28,7 @@ const Create = () => {
         app = { ...app, threshold };
       }
   
-      fetch('http://10.20.0.74:8888/apps', { 
+      fetch('http://10.136.149.225:8888/apps', { 
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(app)
