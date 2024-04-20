@@ -13,8 +13,8 @@ const ApplicationDetails = () => {
     useEffect(() => {
         // Fetch application details and available services
         Promise.all([
-            fetch(`http://10.136.149.225:8888/apps/${id}`, { method: 'GET' }),
-            fetch('http://10.136.149.225:8888/services', { method: 'GET' })
+            fetch(`http://10.20.0.74:8888/apps/${id}`, { method: 'GET' }),
+            fetch('http://10.20.0.74:8888/services', { method: 'GET' })
         ]).then(async ([appRes, servicesRes]) => {
             if (!appRes.ok || !servicesRes.ok) {
                 throw new Error('Failed to fetch data');
@@ -35,7 +35,7 @@ const ApplicationDetails = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const app = { name, enabled,service1, service2 };
-        fetch(`http://10.136.149.225:8888/apps/update/${id}`, {
+        fetch(`http://10.20.0.74:8888/apps/update/${id}`, {
             method: 'PUT',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(app)
@@ -51,15 +51,13 @@ const ApplicationDetails = () => {
                 <label>Service Name:</label>
                 <input
                     type="text"
-                    required
-                    value={name}
+                    value={name?name:''}
                     onChange={(e) => setName(e.target.value)}
                 />
                 <label>Service status:</label>
                 <input
                     type="text"
-                    required
-                    value={enabled}
+                    value={enabled?enabled:''}
                     onChange={(e) => setEnabled(e.target.value)}
                 />
                 <label>Please Select First Service:</label>
