@@ -89,7 +89,8 @@ function ApplicationList({ apps }) {
               <h2>{app.name}</h2>
               <p>Services: {app.service1} and {app.service2}</p>
               <p>Relationship: {app.relationship}</p>
-              <p>Status: {app.enabled}</p>
+              <p>Enabled: {app.enabled}</p>
+              <p>Status: {app.status}</p>
             </Link>
           </div>
           <div className="actions">
@@ -101,7 +102,7 @@ function ApplicationList({ apps }) {
               {app.relationship === 'condition' && (
                   <input
                       type="text"
-                      value={threshold.toString()}
+                      value={threshold}
                       onChange={(e) => setThreshold(e.target.value)}
                   />
               )}

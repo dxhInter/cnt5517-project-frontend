@@ -3,7 +3,7 @@ import Navbar from './Component/Navbar';
 import Home from './Component/Home';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Create from './Component/Create';
-import ApplicationDetails from './Component/ApplicationDetails'; 
+import ApplicationDetails from './Component/ApplicationDetails';
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/create" element={<Create />} />
-            <Route path="/apps/update/:id" element={<ApplicationDetails />} /> 
+            <Route path="/apps/update/:id" element={<ApplicationDetails />} />
           </Routes>
         </div>
       </div>
