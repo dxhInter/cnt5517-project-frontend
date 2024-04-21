@@ -5,6 +5,7 @@ function ApplicationList({ apps }) {
   const navigate = useNavigate();
   const [threshold, setThreshold] = useState({});
   const [message, setMessage] = useState("");
+  const [result, setResult] = useState([]);
 
   const handleClick_delete = (appId) => {
     fetch(`http://10.20.0.74:8888/apps/delete/${appId}`, {
@@ -37,6 +38,7 @@ function ApplicationList({ apps }) {
         .then(data => {
           if (data.code === 200) {
             setMessage("App runs successfully!");
+            setResult(data.result.filter(item => item !== true).map(item => item === "No Output" ? "Run successfully" : item));
             navigate('/');
           } else {
             setMessage(`App runs failed!: ${data.message}`);
@@ -81,6 +83,15 @@ function ApplicationList({ apps }) {
 
   return (
       <div>{message && <div className="message">{message}</div>}
+        {result.length > 0 && (
+            <div className="result">
+              <p>Results:</p>
+              <ul>
+                {result.map((item, index) => (
+                    <li key={index}>{item}</li>))}
+              </ul>
+            </div>
+        )}
     <div className="app-list">
       {apps.map((app) => (
         <div className="app-preview" key={app.id}>
